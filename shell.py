@@ -1,15 +1,14 @@
 from Utility.constants import Constants
-from command import Command
+from equation_solver import EquationSolver as EquationEngine
+from Utility.command import Command
 
 class Shell:
 
     running = False
     constantsRef = None
-    context = None
 
     def __init__(self):
         self.constantsRef = Constants()
-        self.context = self.constantsRef.Context.SHELL
 
     def Start(self):
 
@@ -21,18 +20,48 @@ class Shell:
         # Actually begin program loop
         while self.running:
             uInput = input()
-            cmd = Command(uInput)
+            cmd = Command(uInput, self.constantsRef.Context.SHELL)
+            self.ExecuteCommand(cmd)
 
-            # Set Context (if applicable)
-            if cmd.cmd == Command.CmdType.EQUATION_SOLVER:
-                self.context = self.constantsRef.Context.EQ
+    def ExecuteCommand(self, cmd):
+        cmdType = cmd.cmd
+        if cmdType == Command.CmdType.EQUATION_SOLVER:
+            self.EQ()
+        elif cmdType == Command.CmdType.EXIT:
+            self.Exit()
+        elif cmdType == Command.CmdType.HELP:
+            self.Help()
+        elif cmdType == Command.CmdType.ABOUT:
+            self.About()
+        elif cmdType == Command.CmdType.CLEAR:
+            self.Clear()
+        elif cmdType == Command.CmdType.NOOP:
+            pass
+        else:
+            pass
 
-            cmd.Execute(self.context)
 
+    def Clear(self):
+        # support for clearing console
+        self.constantsRef.SystemClear()
+        self.constantsRef.PrintWelcome()
 
+    def Help(self):
+        self.constantsRef.PrintHelp()
 
-    def SystemClear(self):
-        os.system("clear") # implement for other operating systems later
+    def About(self):
+        self.constantsRef.SystemClear()
+        self.constantsRef.PrintAbout()
+        input()
+        self.Clear()
+
+    def EQ(self):
+        eq = EquationEngine()
+        eq.Start()
+
+    def Exit(self):
+        print("Goodbye!")
+        exit(1)
 
 
 s = Shell()

@@ -8,9 +8,12 @@ class Constants:
         EQ = 0
 
     LIB_NAME = "Pythongebra"
-    LIB_VERSION = "12.2023"
+    LIB_VERSION = "0.0.3"
     LIB_DEVELOPER = "Axel Wahlstrom"
     BAR = "====================================================================="
+
+    LIB_EQ_SOLVER_NAME = "PyEqSolv"
+    LIB_EQ_SOLVER_VERSION = "1.0.0"
 
     def PrintWelcome(self):
         print(self.BAR)
@@ -22,6 +25,8 @@ class Constants:
         print(self.BAR)
         print("Welcome to " + self.LIB_NAME + " V" + self.LIB_VERSION + "!!! by " + self.LIB_DEVELOPER)
         print("A Python Mathematical Library!")
+        print("Current integrations:")
+        print("1.) Equation Solver " + self.LIB_EQ_SOLVER_NAME + " v" + self.LIB_EQ_SOLVER_VERSION)
         print(self.BAR)
         print("Hit enter to continue...")
 
