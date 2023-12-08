@@ -11,8 +11,6 @@ class Deck:
         self.numDecks = numDecks
         self.Initialize(shouldShuffle)
 
-    Shuffle = lambda: random.shuffle(self.deck)
-
     def Initialize(self, shuffle=False):
         self.deck = []
         self.discard = []
@@ -22,7 +20,20 @@ class Deck:
             self.deck.append(Card(i))
 
         if shuffle:
-            self.Shuffle()
+            self.Shuffle(15)
+
+        self.deck.append(Card(-1)) # Add EOF
 
     def Reset(self):
         self.Initialize(True)
+
+    def Shuffle(self, n_shuffles):
+        for i in range(0, n_shuffles + 1):
+            random.shuffle(self.deck)
+
+    def Draw(self):
+        c = self.deck.pop() if len(self.deck) > 0 else None
+        if c == None or c.suit == Card.Suits.EOF or c.face == Card.Faces.EOF:
+            print("No Cards Remaining")
+            return None
+        return c

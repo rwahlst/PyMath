@@ -3,12 +3,14 @@ from enum import IntEnum
 class Card:
 
     class Suits(IntEnum):
+        EOF = -1
         DIAMONDS = 1,
         HEARTS = 2,
         SPADES = 3,
         CLUBS = 4
 
     class Faces(IntEnum):
+        EOF = -1
         ACE = 1,
         TWO = 2,
         THREE = 3,

@@ -30,10 +30,12 @@ class BlackJack:
         print("But first, what is your name?")
         pName = input()
 
-        for i in self.deck.deck:
-            if (self.deck.deck.index(i) % 13 == 0):
-                print("")
-            print(i)
+        c = self.deck.Draw()
+        print(c)
+        while c is not None:
+            c = self.deck.Draw()
+            print(c)
+        print(c)
 
         self.player.name = pName
         print("Welcome, " + self.player.name + "!")
