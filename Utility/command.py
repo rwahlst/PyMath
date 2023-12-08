@@ -4,12 +4,19 @@ from Utility.constants import Constants
 class Command:
 
     class CmdType(Enum):
-        EXIT = -2
-        NOOP = -1,
-        HELP = 0,
-        ABOUT = 1,
-        CLEAR = 2,
-        EQUATION_SOLVER = 3
+        NOOP = 0,
+        EXIT = 1,
+        HELP = 2,
+        ABOUT = 3,
+        CLEAR = 4,
+        EQUATION_SOLVER = 5
+        BLACK_JACK = 6
+
+    class BlkJckCmdType(Enum):
+        NOOP = 0,
+        EXIT = 1,
+        HELP = 2,
+        BAL = 3
 
     cmd = None # this object's current command state (Type: CmdType ENUM)
     constantsRef = None # const ref
@@ -23,6 +30,8 @@ class Command:
             self.cmd = self.GetCommand(cmd)
         elif ctx == self.constantsRef.Context.EQ:
             self.cmd = self.GetEQCommand(cmd)
+        elif ctx == self.constantsRef.Context.BLK_JCK:
+            self.cmd = self.GetBJCommand(cmd)
         else:
             self.cmd = self.GetCommand(cmd)
 
@@ -38,6 +47,8 @@ class Command:
             return self.CmdType.CLEAR
         elif "5" in upperCase or "EQ" in upperCase or "SOLVER" in upperCase:
             return self.CmdType.EQUATION_SOLVER
+        elif "6" in upperCase or "BL" in upperCase or "JA" in upperCase:
+            return self.CmdType.BLACK_JACK
         else:
             return self.CmdType.NOOP
 
@@ -47,3 +58,14 @@ class Command:
             return self.CmdType.EXIT
         else:
             return self.CmdType.NOOP
+
+    def GetBJCommand(self, cmd_msg):
+        upperCase = cmd_msg.upper()
+        if "EXIT" in upperCase:
+            return self.BlkJckCmdType.EXIT
+        if "HELP" in upperCase:
+            return self.BlkJckCmdType.HELP
+        if "BAL" in upperCase:
+            return self.BlkJckCmdType.BAL
+        else:
+            return self.BlkJckCmdType.NOOP

@@ -1,17 +1,20 @@
 from Utility.constants import Constants
 from Utility.command import Command
+from Utility.solvers import Solvers
 import re
 
 class EquationSolver:
 
     constantsRef = None
     running = False
-    debug = True
+    debug = False
+    solver_func = Solvers().Standard
 
     operations = ['*', '/', '-', '+']
 
     def __init__(self):
         self.constantsRef = Constants()
+        self.constantsRef.SystemClear()
 
     def Start(self):
         self.running = True
@@ -54,14 +57,26 @@ class EquationSolver:
     # if no equivalence
     def Solve(self, eq):
         if self.ValidateEquation(eq):
+            eq = self.RefineEquation(eq)
             variables = self.GetVariables(eq)
-            print("OK!")
+            return self.solver_func(eq)
         else:
-            print("Not OK!")
+            print("'" + eq + "' was not a recognized equation... sorry about that, try typing it a different way.")
 
     def ValidateEquation(self, eq):
         pattern = r'^[a-zA-Z0-9+\-*/=()^\s]+$'
         return bool(re.match(pattern, eq))
+
+    def RefineEquation(self, eq):
+        eq = eq.replace(' ', '')
+        if '=' in eq:
+            begin = eq[:eq.index('=')]
+            end = eq[eq.index('=') + 1:]
+            if len(end) == 0:
+                eq += '0'
+        else:
+            eq += "=0"
+        return eq
 
     def GetVariables(self, eq):
         var_list = []
