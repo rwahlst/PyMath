@@ -16,7 +16,8 @@ class Command:
         NOOP = 0,
         EXIT = 1,
         HELP = 2,
-        BAL = 3
+        BAL = 3,
+        DEAL = 4
 
     cmd = None # this object's current command state (Type: CmdType ENUM)
     constantsRef = None # const ref
@@ -67,5 +68,7 @@ class Command:
             return self.BlkJckCmdType.HELP
         if "BAL" in upperCase:
             return self.BlkJckCmdType.BAL
+        if "DE" in upperCase:
+            return self.BlkJckCmdType.DEAL
         else:
             return self.BlkJckCmdType.NOOP

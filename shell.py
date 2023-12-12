@@ -20,7 +20,7 @@ class Shell:
 
         # Actually begin program loop
         while self.running:
-            uInput = input()
+            uInput = input(self.constantsRef.APPLICATION_CURSOR)
             cmd = Command(uInput, self.constantsRef.Context.SHELL)
             self.ExecuteCommand(cmd)
 

@@ -3,6 +3,7 @@ from Utility.command import Command
 from Utility.command import Command
 from Utility.BlackJack.player import Player
 from Utility.BlackJack.deck import Deck
+from Utility.BlackJack.hand import Hand
 
 class BlackJack:
 
@@ -27,15 +28,7 @@ class BlackJack:
         print(self.constantsRef.LIB_BLACK_JACK_NAME + " v" + self.constantsRef.LIB_BLACK_JACK_VERSION)
         print(self.constantsRef.BAR)
         print("Enter a command to begin... Or type 'help' at any time to get help")
-        print("But first, what is your name?")
-        pName = input()
-
-        c = self.deck.Draw()
-        print(c)
-        while c is not None:
-            c = self.deck.Draw()
-            print(c)
-        print(c)
+        pName = input("But first, what is your name? - ")
 
         self.player.name = pName
         print("Welcome, " + self.player.name + "!")
@@ -57,10 +50,33 @@ class BlackJack:
             self.Help()
         elif cmdType == self.commands.BAL:
             self.Bal()
+        elif cmdType == self.commands.DEAL:
+            self.Deal()
         elif cmdType == self.commands.NOOP:
             pass
         else:
             pass
+
+    def Deal(self):
+
+        initial_hands = self.GetInitialHands()
+        dealer_hand = Hand(initial_hands[0], Hand.HandType.Dealer)
+        player_hand = Hand(initial_hands[1], Hand.HandType.Player)
+
+        print(dealer_hand)
+        print(player_hand)
+
+
+
+    def GetInitialHands(self):
+        dealer_hand = []
+        player_hand = []
+        dealer_hand.append(self.deck.Draw())
+        player_hand.append(self.deck.Draw())
+        dealer_hand.append(self.deck.Draw())
+        player_hand.append(self.deck.Draw())
+        return [dealer_hand, player_hand]
+
 
     def Exit(self):
         self.running = False

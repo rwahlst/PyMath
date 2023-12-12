@@ -41,4 +41,6 @@ class Card:
         self.face = self.Faces(face)
 
     def __str__(self):
-        return str(self.face) + " of " + str(self.suit)
+        f = str(self.face)
+        s = str(self.suit)
+        return "[" + f[f.index('.') + 1:] + " of " + s[s.index('.') + 1:] + "]"

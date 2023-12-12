@@ -19,6 +19,8 @@ class Constants:
     LIB_BLACK_JACK_NAME = "BlackJackEng"
     LIB_BLACK_JACK_VERSION = "1.0.0"
 
+    APPLICATION_CURSOR = '>'
+
     def PrintWelcome(self):
         print(self.BAR)
         print(self.LIB_NAME + " V" + self.LIB_VERSION)

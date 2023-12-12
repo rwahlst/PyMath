@@ -7,6 +7,7 @@ class Player:
     win = 0
     loss = 0
     games_played = 0
+    hand = None
 
     def __init__(self):
         self.balance = 100.00
