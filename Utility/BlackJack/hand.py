@@ -30,10 +30,18 @@ class Hand:
         return self.cards.pop()
 
     def ClearHand(self):
+        self.value = 0
         self.cards = []
 
     def GetValue(self):
-        return self.value # TODO - implement this
+        self.value = 0
+        for card in self.cards:
+            self.value += card.GetValue() # add non-aces first
+
+        for card in self.cards:
+            self.value += card.GetValue(self.value, True)
+
+        return self.value
 
     def __str__(self):
 
@@ -47,5 +55,7 @@ class Hand:
                     s += str(self.cards[i])
                 else:
                     s += str(self.cards[i]) + " - "
+            value = self.GetValue()
+            s += "\nHand Value: " + str(value)
 
         return s

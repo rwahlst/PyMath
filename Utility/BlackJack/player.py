@@ -16,11 +16,13 @@ class Player:
         return "$" + str(self.balance)
 
     def Win(self, winnings):
+        self.games_played += 1
         self.win += 1
         self.balance += winnings
         self.balance = round(self.balance, 2)
 
     def Loss(self, bet):
+        self.games_played += 1
         self.loss += 1
         self.balance -= bet
         self.balance = round(self.balance, 2)

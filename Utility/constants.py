@@ -18,6 +18,7 @@ class Constants:
 
     LIB_BLACK_JACK_NAME = "BlackJackEng"
     LIB_BLACK_JACK_VERSION = "1.0.0"
+    NUM_DECKS = 7
 
     APPLICATION_CURSOR = '>'
 

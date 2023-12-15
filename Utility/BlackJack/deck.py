@@ -31,9 +31,16 @@ class Deck:
         for i in range(0, n_shuffles + 1):
             random.shuffle(self.deck)
 
-    def Draw(self):
+    def DrawHelper(self):
         c = self.deck.pop() if len(self.deck) > 0 else None
         if c == None or c.suit == Card.Suits.EOF or c.face == Card.Faces.EOF:
-            print("No Cards Remaining")
             return None
         return c
+
+    def Draw(self):
+        c = self.DrawHelper()
+        if c is not None:
+            return c
+        else:
+            self.Reset()
+            return self.Draw()
